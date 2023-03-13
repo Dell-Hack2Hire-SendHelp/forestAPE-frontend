@@ -1,27 +1,39 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { ThemeProvider } from "@emotion/react";
-// import { BrowserRouter as Router } from "react-router-dom";
-import theme from "./theme";
-import App from "./App";
+import { BrowserRouter } from "react-router-dom";
+import { SnackbarProvider } from "notistack";
+import { DialogContextProvider } from "./contexts/DialogContext";
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
-  </React.StrictMode>
+import AppMaterialTheme from "./styles/AppMaterialTheme";
+import App from "./App";
+import ViewTemplate from "./views/ViewTemplate";
+
+import "./styles/tailwind.css";
+import "@fontsource/lato";
+import "@fontsource/roboto";
+import '@fontsource/cantora-one';
+
+
+const app = (
+    <React.StrictMode>
+        <ThemeProvider theme={AppMaterialTheme}>
+        {/* Notistack Snackbar Provider */}
+        <SnackbarProvider maxSnack={5} anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}>
+        {/* Dialog Component */}
+        <DialogContextProvider>
+        {/* React Router DOM */}
+        <BrowserRouter>
+            <ViewTemplate />
+        </BrowserRouter>
+        </DialogContextProvider>
+        </SnackbarProvider>
+        </ThemeProvider>
+    </React.StrictMode>
 );
 
-// const root = ReactDOM.createRoot(document.getElementById("root"));
-// root.render(
-//   <React.StrictMode>
-//   <Provider store={store}>
-//     <Router>
-//     <ThemeProvider theme={theme}>
-//       <App />
-//     </ThemeProvider>
-//     </Router>
-//   </Provider>
-//   </React.StrictMode>
-// );
+
+
+ReactDOM
+    .createRoot( document.getElementById("root") as HTMLElement)
+    .render(app);
