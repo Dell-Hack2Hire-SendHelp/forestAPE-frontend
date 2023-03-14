@@ -3,7 +3,7 @@ import { Close } from '@mui/icons-material';
 
 
 // A custom hook that extends useSnackbar from notistack
-const useToast = () => {
+export const useToast = () => {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     // Action button, including the button to close the snackbar
@@ -21,6 +21,3 @@ const useToast = () => {
 
     return { alertError, alertWarning, alertInfo, alertSuccess };
 };
-
-
-export default useToast;

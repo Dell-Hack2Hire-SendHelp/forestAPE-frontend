@@ -9,14 +9,16 @@ import { DialogContextProvider } from "./contexts/DialogContext";
 import AppMaterialTheme from "./styles/AppMaterialTheme";
 import ViewTemplate from "./views/ViewTemplate";
 
-
 import "./styles/tailwind.css";
+import './styles/app.css';
+
 import "@fontsource/lato";
 import "@fontsource/roboto";
 import '@fontsource/cantora-one';
 
-import App from "./App";
 import { store } from "./redux/store";
+
+
 
 const app = (
     <React.StrictMode>

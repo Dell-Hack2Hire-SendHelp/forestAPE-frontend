@@ -2,10 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-
-/* CSS Reset */
-* {
-    box-sizing: border-box !important;
-    margin: 0;
-    padding: 0;
-}
