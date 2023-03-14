@@ -14,7 +14,9 @@ const pages = [
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
 ];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const userControls = [
+    { name: "Logout", href: "/logout" },
+];
 
 
 function Appbar() {
@@ -54,6 +56,7 @@ function Appbar() {
         <Container maxWidth="xl">
         <Toolbar disableGutters>
 
+            {/* Logo on Large Screen */}
             <Button onClick={()=> navigateTo("/")} className='hidden md:flex'>
                 <img 
                     src="/images/APELogo.png" 
@@ -66,38 +69,26 @@ function Appbar() {
                 </Typography>
             </Button>
 
-
-
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            
+            {/* Pages Menu on Small Screen */}
+            <Box className='grow flex md:hidden'>
                 <IconButton
                     size="large"
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={handleOpenNavMenu}
                     color="inherit"
+                    onClick={handleOpenNavMenu}
                 >
                     <MenuIcon />
                 </IconButton>
 
-
                 <Menu
                     id="menu-appbar"
                     anchorEl={anchorElNav}
-                    anchorOrigin={{
-                        vertical: "bottom",
-                        horizontal: "left",
-                    }}
                     keepMounted
-                    transformOrigin={{
-                        vertical: "top",
-                        horizontal: "left",
-                    }}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "left", }}
+                    transformOrigin={{ vertical: "top", horizontal: "left", }}
                     open={Boolean(anchorElNav)}
                     onClose={handleCloseNavMenu}
-                    sx={{
-                        display: { xs: "block", md: "none" },
-                    }}
+                    className='block md:hidden'
                 >
                     {
                         pages.map(({ name, href }) => (
@@ -109,7 +100,8 @@ function Appbar() {
                 </Menu>
             </Box>
 
-
+            
+            {/* Logo on small screen */}
             <Button onClick={()=> navigateTo("/")} className='grow flex md:hidden'>
                 <img 
                     src="/images/APELogo.png" 
@@ -122,7 +114,8 @@ function Appbar() {
                 </Typography>
             </Button>
 
-
+            
+            {/* Pages on Large Screen */}
             <Box className='hidden md:flex grow ml-4 font-bold'>
                 {
                     pages.map(({ name, href }) => (
@@ -136,24 +129,30 @@ function Appbar() {
                     ))
                 }
             </Box>
+            
+            
+            {/* Avatar Controls */}
+            <Box className='grow-0 flex items-center gap-3'>
 
-            <Box sx={{ flexGrow: 0 }}>
+                <Button className='text-white font-["Cantora_One"]' onClick={()=> navigateTo('/signin')}>
+                    Sign in
+                </Button>
+
                 <Tooltip title="Open settings">
-                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                        <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" className='bg-green-400'/>
+                    <IconButton onClick={handleOpenUserMenu} className='p-0'>
+                        <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" className='bg-green-500'/>
                     </IconButton>
                 </Tooltip>
-
 
                 <Menu
                     sx={{ mt: "45px" }}
                     id="menu-appbar"
+                    keepMounted
                     anchorEl={anchorElUser}
                     anchorOrigin={{
                         vertical: "top",
                         horizontal: "right",
                     }}
-                    keepMounted
                     transformOrigin={{
                         vertical: "top",
                         horizontal: "right",
@@ -162,9 +161,9 @@ function Appbar() {
                     onClose={handleCloseUserMenu}
                 >
                     {
-                        settings.map((setting) => (
-                            <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                <Typography textAlign="center">{setting}</Typography>
+                        userControls.map(({ name, href }) => (
+                            <MenuItem key={name} onClick={()=> navigateTo(href)}>
+                                <Typography textAlign="center">{name}</Typography>
                             </MenuItem>
                         ))
                     }
@@ -176,4 +175,7 @@ function Appbar() {
         </AppBar>
     );
 }
+
+
+
 export default Appbar;
